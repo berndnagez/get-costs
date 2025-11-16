@@ -1,0 +1,11 @@
+Source: get-costs
+Section: utils
+Priority: optional
+Maintainer: Björn Nagel <kontakt@bjoernnagel.de>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all
+
+Package: get-costs
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Tool zur Auswertung der Lohnjournale und weiterer Ausgaben
+ Ein Python-Programm zur Verteilung der Lohn- und Lohnnebenkosten auf die einzelnen Bereiche.

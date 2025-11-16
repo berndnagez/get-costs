@@ -1,0 +1,8 @@
+*.debhelper
+debhelper-build-stamp
+get-costs.substvars
+
+/.pybuild
+/debian/.debhelper/
+/debian/get-costs
+/src/get_costs.egg-info

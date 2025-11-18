@@ -11,7 +11,6 @@ setup(
         ],
     },
     install_requires=[
-        #"python3-xlsxwriter", "python3-pandas", "python3-openpyxl"
         "XlsxWriter==3.2.2", "Pandas==2.2.3", "openpyxl==3.1.5"
     ],
     python_requires=">=3.8",

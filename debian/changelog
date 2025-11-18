@@ -1,3 +1,9 @@
+get-costs (1.0.1-1) stable; urgency=medium
+
+  * Neue Version mit requirements
+
+ -- Björn Nagel <kontakt@bjoernnagel.de>  Tue, 18 Nov 2025 16:55:29 +0100
+
 get-costs (1.0.0-1) stable; urgency=medium
 
   * Erste Veröffentlichung.

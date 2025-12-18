@@ -1,4 +1,4 @@
-import config
+from . import config
 
 def create_formulas_for_projects(keys_and_value_list, divisor, splitted_values_dict):
     for key, value in keys_and_value_list:

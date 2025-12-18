@@ -1,4 +1,4 @@
-import costs_splitter
+from src.get_costs import costs_splitter
 
 def test_split():
     project_list = [

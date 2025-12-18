@@ -1,4 +1,4 @@
-import path_creator
+from src.get_costs import path_creator
 import pytest
 
 def test_validate_file_exists():

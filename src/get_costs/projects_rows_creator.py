@@ -1,15 +1,15 @@
 from operator import itemgetter
-from .employee_data_reader import get_date
-from .workbook_writer import write
-import get_costs.config
+from date_creator import get_date_object
+from workbook_writer import write
+import config
 
 def create_new_headline(project_id, date_object, all_rows):
-    all_rows.append(([("", get_costs.config.TEXT_FORMAT_PROJECTS)]))
+    all_rows.append(([("", config.TEXT_FORMAT_PROJECTS)]))
     row_data_costs = [
-        (project_id, get_costs.config.PROJECT_ID_FORMAT_PROJECTS),
-        (date_object, get_costs.config.DATE_FORMAT_PROJECTS),
-        ("", get_costs.config.PROJECT_ID_FORMAT_PROJECTS),
-        ("", get_costs.config.PROJECT_ID_FORMAT_PROJECTS)
+        (project_id, config.PROJECT_ID_FORMAT_PROJECTS),
+        (date_object, config.DATE_FORMAT_PROJECTS),
+        ("", config.PROJECT_ID_FORMAT_PROJECTS),
+        ("", config.PROJECT_ID_FORMAT_PROJECTS)
     ]   
     all_rows.append((row_data_costs))
     return all_rows
@@ -17,10 +17,10 @@ def create_new_headline(project_id, date_object, all_rows):
 
 def get_row(key, value):
     row = [
-            (key, get_costs.config.TEXT_FORMAT_PROJECTS),
-            ("", get_costs.config.TEXT_FORMAT_PROJECTS),
-            ("", get_costs.config.CURRENCY_FORMAT),
-            (value, get_costs.config.CURRENCY_FORMAT)
+            (key, config.TEXT_FORMAT_PROJECTS),
+            ("", config.TEXT_FORMAT_PROJECTS),
+            ("", config.CURRENCY_FORMAT),
+            (value, config.CURRENCY_FORMAT)
     ]
     return row
 
@@ -38,7 +38,7 @@ def get_all_rows(splitted_values_list, date_object, all_rows):
             if key != 'project_id':
                 row = get_row(key, value)
                 all_rows.append((row))
-
+    
     all_rows = {
         "COSTS_SHEET": all_rows
     }
@@ -53,8 +53,8 @@ if __name__ == "__main__":
         {'project_id': '0026_comM', 'Gehalt Alan': '=ROUND(-3675.67/40*20.0, 2)', 'Sozialv. Alan': '=ROUND(-749.47/40*20.0, 2)', 'Umlagen Alan': '=ROUND(-142.99/40*20.0, 2)', 'bAV Alan': '=ROUND(-150.0/40*20.0, 2)', 'HVV Alan': '=ROUND(-46.55/40*20.0, 2)', '1&1 Alan': '=ROUND(-7.99/40*20.0, 2)', 'Edenred Alan': '=ROUND(-50.0/40*20.0, 2)'}
         ]
     all_rows = []
-    date = get_date("24_01")
+    date = get_date_object("24_01")
     all_rows = get_all_rows(splitted_values_list, date, all_rows)
     border = False
     print(all_rows)
-    #write("for_Paul", border, all_rows)
+    write("for_Paul", border, all_rows)

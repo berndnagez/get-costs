@@ -6,3 +6,16 @@ get-costs.substvars
 /debian/.debhelper/
 /debian/get-costs
 /src/get_costs.egg-info
+
+*.ods
+*.xlsx
+*.xlsx.bak
+*.docx
+/data
+/__pycache__
+/tests/__pycache__
+*.xlsx#
+/problem_doku
+/backup
+.~lock*
+/venv

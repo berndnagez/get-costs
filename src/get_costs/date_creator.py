@@ -8,7 +8,7 @@ def validate(journal_name):
         print(f"Bspw. 24_04 für das Lohnjournal des Aprils 2024.")
         exit('Programmabbruch.')
 
-def split(filename):    
+def split(filename):
     name_parts = filename.split("_")
     year = name_parts[0]
     month = name_parts[1]
@@ -19,7 +19,7 @@ def get_sheet_name(filename):
     sheet_name = f'{year}_{month}'
     return sheet_name
 
-def get_date(filename):
+def get_date_from(filename):
     year, month = split(filename)
     date_str = f'01-{month}-{year}'
     date_object = datetime.strptime(date_str, '%d-%m-%y').date()
@@ -29,10 +29,20 @@ def get_year(filename):
     return filename.split("_")[0]
 
 
+
+def get_date_object(sheet_name):
+    parts_of_sheet_name = sheet_name.split("_")
+    year = parts_of_sheet_name[0]
+    month = parts_of_sheet_name[1]
+    date_str = f'01-{month}-{year}'
+    date_object = datetime.strptime(date_str, '%d-%m-%y').date()
+    return date_object
+
+
 def show_debug_infos():
     print(get_year("23_12_20 Lohnjournal Dezember 2023.xlsx"))
     sheet_name = get_sheet_name("23_12_20 Lohnjournal Dezember 2023.xlsx")
-    date = get_date("23_12_20 Lohnjournal Dezember 2023.xlsx")
+    date = get_date_from("23_12_20 Lohnjournal Dezember 2023.xlsx")
     print(sheet_name)
     print(date)
     validate("23_12_20 Lohnjournal Dezember 2023.xlsx")

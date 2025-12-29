@@ -10,11 +10,11 @@ get-costs.substvars
 *.ods
 *.xlsx
 *.xlsx.bak
+*.xlsx#
+*.pyc
 *.docx
 /data
-/__pycache__
-/tests/__pycache__
-*.xlsx#
+__pycache__
 /problem_doku
 /backup
 .~lock*

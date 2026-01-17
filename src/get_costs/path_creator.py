@@ -1,5 +1,5 @@
 import os
-from . import config
+import config
 
 class PathNotFoundError(Exception):
     pass

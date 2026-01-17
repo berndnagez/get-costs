@@ -1,7 +1,7 @@
 from operator import itemgetter
-from .date_creator import get_date_object
-from .workbook_writer import write
-from . import config
+from date_creator import get_date_object
+from workbook_writer import write
+import config
 
 #TODO ziel muss es sein, eine Methode zu haben, die alle Sheets in folgender Form zurückgibt, also als dict:
 # ZIEL:

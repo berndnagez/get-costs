@@ -1,5 +1,5 @@
 import xlsxwriter
-from . import config
+import config
 
 def write(name, border, all_rows):
     workbook = get_workbook(f'{name}.xlsx')

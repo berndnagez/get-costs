@@ -77,7 +77,7 @@ def create_result_file_for_all_projects(journal_name):
     additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
 
     project_list = calculate(employee_data, journal_data, provision, additional_costs)
-    splitted_values_list = split(project_list, projects=False)
+    splitted_values_list = split(project_list, projects=True)
     all_rows = []
     all_rows = get_all_rows(splitted_values_list, date, all_rows)
     border = False

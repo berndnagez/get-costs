@@ -1,6 +1,7 @@
 from journal_names_getter import get_journal_names
 from path_creator import get_paths
 from project_rows_creator import create_project_sheets, distribute_values_to_sheets, remove_empty_rows, add_last_row
+from projects_rows_creator import get_all_rows
 from config import get_paths_for, INDEX, get_personal_of, get_sheetnames_of
 from id_reader import get_all_ids_from
 from date_creator import get_year, get_sheet_name, get_date_from
@@ -38,7 +39,7 @@ def create_result_file_for(project_id):
     for journal_name in journal_names:
         year = get_year(journal_name)
         sheet_name = year_month_prefix = get_sheet_name(journal_name)
-        journal_data_file,employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(project_id, year, journal_name, year_month_prefix)
+        journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(project_id, year, journal_name, year_month_prefix)
         date = get_date_from(journal_name)
         index = INDEX
         project_staff_ids = get_personal_of(project_id)
@@ -46,7 +47,7 @@ def create_result_file_for(project_id):
         ids = get_available_project_staff_ids(project_staff_ids, all_ids_from_journal)
 
         employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
-        # TODO nächste Zeile für zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
+        # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
         journal_data = reader.get_list_of_dicts(journal_data_file, "first_sheet", index, ids)
         provision = reader.get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
         additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
@@ -61,9 +62,26 @@ def create_result_file_for(project_id):
     write(result_file_path, border, project_sheets)
 
 
-def create_result_file_for_all_projects(journal):
-    print("Das ist für Paul, geht aber noch nicht.")
-    #TODO hier die Funktionalität für Paul einbauen
+def create_result_file_for_all_projects(journal_name):
+    year = get_year(journal_name)
+    sheet_name = year_month_prefix = get_sheet_name(journal_name)
+    journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths('', year, journal_name, year_month_prefix)
+    date = get_date_from(journal_name)
+    index = INDEX
+    ids = get_all_ids_from(journal_data_file, "first_sheet")
+
+    employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
+    # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
+    journal_data = reader.get_list_of_dicts(journal_data_file, "first_sheet", index, ids)
+    provision = reader.get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
+    additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
+
+    project_list = calculate(employee_data, journal_data, provision, additional_costs)
+    splitted_values_list = split(project_list, projects=False)
+    all_rows = []
+    all_rows = get_all_rows(splitted_values_list, date, all_rows)
+    border = False
+    write(result_file_path, border, all_rows)
     #TODO Fehler abfangen, wenn hinter -i der Dateiname nicht in Anführungszeichen kommt (dann sollte nur das Datum hier ankommmen und es müsste eine Fehler entstehen)
 
 def create_result_file_for_project_with(journal, project_id):

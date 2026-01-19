@@ -3,7 +3,7 @@ from path_creator import get_paths
 from project_rows_creator import create_project_sheets, distribute_values_to_sheets, remove_empty_rows, add_last_row
 from projects_rows_creator import get_all_rows
 from config import get_paths_for, INDEX, get_personal_of, get_sheetnames_of
-from id_reader import get_all_ids_from
+from id_merger import merge_ids
 from date_creator import get_year, get_sheet_name, get_date_from
 from project_costs_calculator import calculate
 from costs_splitter import split
@@ -43,8 +43,8 @@ def create_result_file_for(project_id):
         date = get_date_from(journal_name)
         index = INDEX
         project_staff_ids = get_personal_of(project_id)
-        all_ids_from_journal = get_all_ids_from(journal_data_file, "first_sheet")
-        ids = get_available_project_staff_ids(project_staff_ids, all_ids_from_journal)
+        all_ids = merge_ids((journal_data_file, employee_data_file, provisions_data_file, additional_costs_file), sheet_name)
+        ids = get_available_project_staff_ids(project_staff_ids, all_ids)
 
         employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
         # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
@@ -68,7 +68,7 @@ def create_result_file_for_all_projects(journal_name):
     journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths('', year, journal_name, year_month_prefix)
     date = get_date_from(journal_name)
     index = INDEX
-    ids = get_all_ids_from(journal_data_file, "first_sheet")
+    ids = merge_ids((journal_data_file, employee_data_file, provisions_data_file, additional_costs_file), sheet_name)
 
     employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
     # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle

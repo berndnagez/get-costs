@@ -1,6 +1,7 @@
 from data_reader import reader
 from math import isnan
 import config
+from path_creator import get_paths
 
 def get_dataframe(file, sheet_name):
     df = reader.get_sheet_data(file, sheet_name, config.INDEX)
@@ -25,13 +26,16 @@ def get_project_ids_from(file, sheet_name, project):
     return project_ids
 
 def show_debug_infos():
-    sheet_name = "24_01"
-    file = "./data/employee_data_2024.xlsx"
-    print(get_all_ids_from(file, sheet_name))
-    print(get_project_ids_from(file, sheet_name, "0026"))
-    sheet_name = ""
-    file = "./journal_data/23_01_30 Lohnjournal Januar 2023.xlsx"
-    print(get_all_ids_from(file, "first_sheet"))
+    journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths('', '25', '25_09_11 Lohnjournal September 2025.xlsx', '25_09')
+    
+    # get all IDs for a project
+    sheet_name = "25_09"
+    print(get_project_ids_from(employee_data_file, sheet_name, "0026"))
+
+    print("---")
+
+    # get all IDs from journal
+    print(get_all_ids_from(journal_data_file, "first_sheet"))
 
 if __name__ == "__main__":
     debug = True

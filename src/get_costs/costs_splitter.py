@@ -81,16 +81,19 @@ def create_formulas_for_cleaning_person(project_id, keys_and_value_list, splitte
 def get_pay(project):
     if project.get('St.Brutto - Steuerbrutto') == '0.0':
         return project.get('BezPausch - Pauschal versteuerte Bezüge')
-    else:
-        return project.get('St.Brutto - Steuerbrutto')
+    return project.get('St.Brutto - Steuerbrutto')
 
 
 def get_social_insurance(project):
+    if not project.get('KV-AG-Beitrag') and not project.get('RV-AG-Beitrag') and not project.get('AV-AG-Beitrag') and not project.get('PV-AG-Beitrag'):
+        return '0.0'
     insurance = float(project.get('KV-AG-Beitrag')) + float(project.get('RV-AG-Beitrag')) + float(project.get('AV-AG-Beitrag')) + float(project.get('PV-AG-Beitrag'))
     return str(insurance)
 
 
 def get_umlagen(project):
+    if not project.get('U1 - Umlage 1') and not project.get('U2 - Umlage 2') and not project.get('InsoU - Insolvenzgeldumlage'):
+        return '0.0'
     umlagen = float(project.get('U1 - Umlage 1')) + float(project.get('U2 - Umlage 2')) + float(project.get('InsoU - Insolvenzgeldumlage'))
     return str(umlagen)
 
@@ -174,7 +177,8 @@ def split(project_list, projects):
 
 
 def show_debug_infos():
-    # TODO wer macht die project_list? da auch ID durch staff_id ersetzen = konsitent
+    # TODO wer macht die project_list? da auch ID durch staff_id ersetzen = Konsitenz
+    # 19.01.2026: der project_costs_calculator.py macht die project_list, bekommt die ID vom data_reader (data_dict['ID'] = str(id))
     project_list = [
         {'project_id': '0026_comM', 'project_hours': '20.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
         {'project_id': '0054_comBüse', 'project_hours': '4.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
@@ -182,7 +186,8 @@ def show_debug_infos():
         {'project_id': '0009_Talk about ', 'project_hours': '13.0', 'ID': '1032', 'Name': 'Alan Roberts', 'Wochenstd': '40', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
         {'project_id': '0026_comM', 'project_hours': '20.0', 'ID': '1032', 'Name': 'Alan Roberts', 'Wochenstd': '40', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
         {'project_id': '0026_comM', 'project_hours': '20.0', 'ID': '1028', 'Name': 'Birthe', 'Wochenstd': '40', 'St.Brutto - Steuerbrutto': '0', 'BezPausch - Pauschal versteuerte Bezüge': '533', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
-        {'project_id': '0026_comM', 'project_hours': '10.0', 'ID': '1035', 'Name': 'Paul Thiessen', 'Wochenstd': '20', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'}
+        {'project_id': '0026_comM', 'project_hours': '10.0', 'ID': '1035', 'Name': 'Paul Thiessen', 'Wochenstd': '20', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
+        {'project_id': '0002_amb. TG ', 'project_hours': '25.0', 'ID': '1156', 'Name': 'Nels Wieschebrook', 'Wochenstd': '25.0', 'St.Brutto - Steuerbrutto': None, 'BezPausch - Pauschal versteuerte Bezüge': None, 'U1 - Umlage 1': None, 'U2 - Umlage 2': None, 'InsoU - Insolvenzgeldumlage': None, 'KV-AG-Beitrag': None, 'RV-AG-Beitrag': None, 'AV-AG-Beitrag': None, 'PV-AG-Beitrag': None, 'bAV AG-Anteil': None, 'HVV': 'nan', '1&1': '-19.99', 'Wetell': 'nan', 'Edenred': 'nan', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'}
         ]
     print(split(project_list, projects=False))
 

@@ -35,24 +35,24 @@ def get_paths_for(id):
         'RESULT_FILE_PATH': "./- 02 Ergebnisse der Auswertung (Monatsweise)"
     }
     paths['0002'] = {
-        'JOURNAL_DATA_PATH': "../../test_data/journal_data",
-        'RAW_DATA_PATH': "../../test_data/raw_data",
-        'RESULT_FILE_PATH': "../../output/"
+        'JOURNAL_DATA_PATH': "./test_data/journal_data",
+        'RAW_DATA_PATH': "./test_data/raw_data",
+        'RESULT_FILE_PATH': "./output/"
     }
     paths['0006'] = {
-        'JOURNAL_DATA_PATH': "../../test_data/journal_data",
-        'RAW_DATA_PATH': "../../test_data/raw_data",
-        'RESULT_FILE_PATH': "../../output/"
+        'JOURNAL_DATA_PATH': "./test_data/journal_data",
+        'RAW_DATA_PATH': "./test_data/raw_data",
+        'RESULT_FILE_PATH': "./output/"
     }
     paths['0026'] = {
-        'JOURNAL_DATA_PATH': "../../test_data/journal_data",
-        'RAW_DATA_PATH': "../../test_data/raw_data",
-        'RESULT_FILE_PATH': "../../output/"
+        'JOURNAL_DATA_PATH': "./test_data/journal_data",
+        'RAW_DATA_PATH': "./test_data/raw_data",
+        'RESULT_FILE_PATH': "./output/"
     }
     paths['0054'] = {
-        'JOURNAL_DATA_PATH': "../../test_data/journal_data",
-        'RAW_DATA_PATH': "../../test_data/raw_data",
-        'RESULT_FILE_PATH': "../../output/"
+        'JOURNAL_DATA_PATH': "./test_data/journal_data",
+        'RAW_DATA_PATH': "./test_data/raw_data",
+        'RESULT_FILE_PATH': "./output/"
     }
     if id in paths:
         return paths.get(id)

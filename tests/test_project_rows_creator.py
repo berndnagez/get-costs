@@ -1,5 +1,6 @@
-from src.get_costs import project_rows_creator
 import datetime
+from src.get_costs import project_rows_creator
+
 
 def test_create_project_sheets():
     expected_project_sheets = {

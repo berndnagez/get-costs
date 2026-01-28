@@ -4,7 +4,6 @@ from .config import get_paths_for
 class PathNotFoundError(Exception):
     pass
 
-
 def get_JOURNAL_DATA_PATH(key, year, journal_name):
     first_path_part = get_paths_for(key).get('JOURNAL_DATA_PATH')
     if key:
@@ -51,7 +50,3 @@ def get_paths(key, year, journal_name, year_month_prefix):
     
     validate_path_exists([journal_data_file, employee_data_file, provisions_data_file , additional_costs_file])
     return journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path
-    
-
-if __name__ == "__main__":
-    get_paths('0026', '24', "24_01_24 Lohnjournal Januar 2024.xlsx", "24_01")

@@ -1,10 +1,10 @@
 from data_reader import reader
 from math import isnan
-import config
-from path_creator import get_paths
+from .config import INDEX
+from .path_creator import get_paths
 
 def get_dataframe(file, sheet_name):
-    df = reader.get_sheet_data(file, sheet_name, config.INDEX)
+    df = reader.get_sheet_data(file, sheet_name, INDEX)
     return df
 
 def get_all_ids_from(file, sheet_name):

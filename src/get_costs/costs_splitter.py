@@ -1,4 +1,4 @@
-import config
+from .config import get_split_factor_for, ID_OF_ACCOUNTING_PERSON, ID_OF_CLEANING_PERSON
 
 def create_formulas_for_projects(keys_and_value_list, divisor, splitted_values_dict):
     for key, value in keys_and_value_list:
@@ -38,7 +38,7 @@ def create_formulas_for_project(keys_and_value_list, divisor, splitted_values_di
 
 def create_formulas_for_accounting_person(project_id, keys_and_value_list, divisor, splitted_values_dict):
     sum = float()
-    factor = config.get_split_factor_for(project_id)
+    factor = get_split_factor_for(project_id)
     for key, value in keys_and_value_list:
         if value != 'nan' and value != '0.0':
             if "bAV" in key or "Gehalt" in key or "Sozialv" in key or "U1" in key or "U2" in key or "InsoU" in key:
@@ -63,7 +63,7 @@ def create_formulas_for_accounting_person(project_id, keys_and_value_list, divis
 
 def create_formulas_for_cleaning_person(project_id, keys_and_value_list, splitted_values_dict):
     sum = float()
-    factor = config.get_split_factor_for(project_id)
+    factor = get_split_factor_for(project_id)
     for key, value in keys_and_value_list:
         if value != 'nan' and value != '0.0':
             if "bAV" in key or "Gehalt" in key or "Sozialv" in key or "U1" in key or "U2" in key or "InsoU" in key:
@@ -156,6 +156,7 @@ def split(project_list, projects):
         splitted_values_dict['project_id'] = project.get('project_id')
         project_id = project.get('project_id').split("_")[0]
         if projects:
+            # TODO hier wird der name aus dem Lohnjournal genutzt
             first_name = project.get('Name').split(" ")[0]
             keys_and_value_list = get_keys_and_value_list_of_projects(first_name, project)
             create_formulas_for_projects(keys_and_value_list, divisor, splitted_values_dict)
@@ -163,9 +164,9 @@ def split(project_list, projects):
             splitted_values_dict['staff_id'] = project.get('ID')
             splitted_values_dict['project_hours'] = project.get('project_hours')
             keys_and_value_list = get_keys_and_value_list_of_project(project)
-            if project.get('ID') == config.ID_OF_ACCOUNTING_PERSON:
+            if project.get('ID') == ID_OF_ACCOUNTING_PERSON:
                 create_formulas_for_accounting_person(project_id, keys_and_value_list, get_divisor_accounting_person(project), splitted_values_dict)
-            elif project.get('ID') == config.ID_OF_CLEANING_PERSON:
+            elif project.get('ID') == ID_OF_CLEANING_PERSON:
                 create_formulas_for_cleaning_person(project_id, keys_and_value_list, splitted_values_dict)
             else:
                 create_formulas_for_project(keys_and_value_list, divisor, splitted_values_dict)

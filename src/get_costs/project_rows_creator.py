@@ -1,7 +1,7 @@
 from operator import itemgetter
-from date_creator import get_date_object
-from workbook_writer import write
-import config
+from .date_creator import get_date_object
+from .workbook_writer import write
+from .config import DATE_FORMAT, CURRENCY_FORMAT_PROJECT, TEXT_FORMAT, TEXT_FORMAT_PROJECTS, TABLE_HEAD_OF_SURCHARGES, TABLE_HEAD_OF_SURCHARGES_RETURN, ID_OF_ACCOUNTING_PERSON, ID_OF_CLEANING_PERSON, TABLE_HEAD_OF_COSTS, TABLE_HEAD_OF_SURCHARGES, TABLE_HEAD_OF_DEFAULT_SHEET, TABLE_FOOTER_OF_COSTS, TABLE_FOOTER_OF_SURCHARGES_SHEET, TABLE_FOOTER_OF_RIDE_COST_SHEET, TABLE_FOOTER_OF_PHONE_SHEET, TABLE_FOOTER_OF_ACCOUNTING_SHEET, TABLE_FOOTER_OF_CLEANING_COAST_SHEET, TABLE_FORMAT_HEAD, get_personal_of, get_contract_num_of, get_sheetnames_of
 
 #TODO ziel muss es sein, eine Methode zu haben, die alle Sheets in folgender Form zurückgibt, also als dict:
 # ZIEL:
@@ -30,75 +30,75 @@ def get_job_share(hours):
 def distribute_to_costs_sheet(project, date, row_num):
     row = []
     job_share = get_job_share(float(project.get('project_hours')))
-    row.append((date, config.DATE_FORMAT))
-    row.append((project.get('staff_id'), config.TEXT_FORMAT))
-    row.append((f'{job_share} Haustarif',  config.TEXT_FORMAT))
-    row.append((project.get('Gehalt'), config.CURRENCY_FORMAT_PROJECT))
-    row.append((project.get('Sozialv.'), config.CURRENCY_FORMAT_PROJECT))
-    row.append((project.get('bAV'), config.CURRENCY_FORMAT_PROJECT))
-    row.append((f'=SUM(D{row_num}:F{row_num})',  config.CURRENCY_FORMAT_PROJECT))
+    row.append((date, DATE_FORMAT))
+    row.append((project.get('staff_id'), TEXT_FORMAT))
+    row.append((f'{job_share} Haustarif',  TEXT_FORMAT))
+    row.append((project.get('Gehalt'), CURRENCY_FORMAT_PROJECT))
+    row.append((project.get('Sozialv.'), CURRENCY_FORMAT_PROJECT))
+    row.append((project.get('bAV'), CURRENCY_FORMAT_PROJECT))
+    row.append((f'=SUM(D{row_num}:F{row_num})',  CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def distribute_to_surcharges_sheet(project, date):
     row = []
-    row.append((date, config.DATE_FORMAT))    
-    row.append((project.get('staff_id'), config.TEXT_FORMAT))
-    row.append((project.get('U1'), config.CURRENCY_FORMAT_PROJECT))
-    row.append((project.get('U2'), config.CURRENCY_FORMAT_PROJECT))
-    row.append((project.get('InsoU'), config.CURRENCY_FORMAT_PROJECT))
+    row.append((date, DATE_FORMAT))    
+    row.append((project.get('staff_id'), TEXT_FORMAT))
+    row.append((project.get('U1'), CURRENCY_FORMAT_PROJECT))
+    row.append((project.get('U2'), CURRENCY_FORMAT_PROJECT))
+    row.append((project.get('InsoU'), CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def distribute_to_ride_costs_sheet(project, date):
     row = []
     if project.get('HVV') != None:
-        row.append((date, config.DATE_FORMAT))
+        row.append((date, DATE_FORMAT))
         id = project.get('staff_id')
-        row.append((f'HVV Stellennr. {id}', config.TEXT_FORMAT_PROJECTS))
-        row.append((project.get('HVV'), config.CURRENCY_FORMAT_PROJECT))
+        row.append((f'HVV Stellennr. {id}', TEXT_FORMAT_PROJECTS))
+        row.append((project.get('HVV'), CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def distribute_to_phone_sheet(project, date):
     row = []
     id = project.get('staff_id')
-    contract_num = config.get_contract_num_of(id)
+    contract_num = get_contract_num_of(id)
     if project.get('1&1') != None:
-        row.append((date, config.DATE_FORMAT))        
-        row.append((f'1&1 Handy {id} {contract_num}', config.TEXT_FORMAT_PROJECTS))
-        row.append((project.get('1&1'), config.CURRENCY_FORMAT_PROJECT))
+        row.append((date, DATE_FORMAT))        
+        row.append((f'1&1 Handy {id} {contract_num}', TEXT_FORMAT_PROJECTS))
+        row.append((project.get('1&1'), CURRENCY_FORMAT_PROJECT))
     if project.get('Wetell') != None:
-        row.append((date, config.DATE_FORMAT))
-        row.append((f'Wetell Handy {id} {contract_num}', config.TEXT_FORMAT_PROJECTS))
-        row.append((project.get('Wetell'), config.CURRENCY_FORMAT_PROJECT))
+        row.append((date, DATE_FORMAT))
+        row.append((f'Wetell Handy {id} {contract_num}', TEXT_FORMAT_PROJECTS))
+        row.append((project.get('Wetell'), CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def distribute_to_accounting_sheet(project, date):
     row = []
-    row.append((date, config.DATE_FORMAT))
-    row.append(('interne Buchhaltung', config.TEXT_FORMAT_PROJECTS))
-    row.append((project.get('Gehalt'), config.CURRENCY_FORMAT_PROJECT))
+    row.append((date, DATE_FORMAT))
+    row.append(('interne Buchhaltung', TEXT_FORMAT_PROJECTS))
+    row.append((project.get('Gehalt'), CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def distribute_to_cleaning_coast_sheet(project, date):
     row = []
-    row.append((date, config.DATE_FORMAT))
-    row.append(('Reinigung', config.TEXT_FORMAT_PROJECTS))
-    row.append((project.get('Gehalt'), config.CURRENCY_FORMAT_PROJECT))
+    row.append((date, DATE_FORMAT))
+    row.append(('Reinigung', TEXT_FORMAT_PROJECTS))
+    row.append((project.get('Gehalt'), CURRENCY_FORMAT_PROJECT))
     return row
 
 
 def append_table_head_rows(project_sheets):
-    append_row_to('SURCHARGES_RETURN_SHEET', project_sheets, (config.TABLE_HEAD_OF_SURCHARGES_RETURN))
-    append_row_to('COSTS_SHEET_PROJECT', project_sheets, (config.TABLE_HEAD_OF_COSTS))
-    append_row_to('SURCHARGES_SHEET', project_sheets, (config.TABLE_HEAD_OF_SURCHARGES))
-    append_row_to('RIDE_COST_SHEET', project_sheets, (config.TABLE_HEAD_OF_DEFAULT_SHEET))
-    append_row_to('PHONE_SHEET', project_sheets, (config.TABLE_HEAD_OF_DEFAULT_SHEET))
-    append_row_to('ACCOUNTING_SHEET', project_sheets, (config.TABLE_HEAD_OF_DEFAULT_SHEET))
-    append_row_to('CLEANING_COAST_SHEET', project_sheets, (config.TABLE_HEAD_OF_DEFAULT_SHEET))
+    append_row_to('SURCHARGES_RETURN_SHEET', project_sheets, (TABLE_HEAD_OF_SURCHARGES_RETURN))
+    append_row_to('COSTS_SHEET_PROJECT', project_sheets, (TABLE_HEAD_OF_COSTS))
+    append_row_to('SURCHARGES_SHEET', project_sheets, (TABLE_HEAD_OF_SURCHARGES))
+    append_row_to('RIDE_COST_SHEET', project_sheets, (TABLE_HEAD_OF_DEFAULT_SHEET))
+    append_row_to('PHONE_SHEET', project_sheets, (TABLE_HEAD_OF_DEFAULT_SHEET))
+    append_row_to('ACCOUNTING_SHEET', project_sheets, (TABLE_HEAD_OF_DEFAULT_SHEET))
+    append_row_to('CLEANING_COAST_SHEET', project_sheets, (TABLE_HEAD_OF_DEFAULT_SHEET))
     return project_sheets
 
 
@@ -110,7 +110,7 @@ def distribute_values_to_sheets(splitted_values_list, project_id, date, project_
     for project in splitted_values_list:
         if project_id in project.get('project_id'):                
             row_num = get_last_row_num_of(project_sheets['COSTS_SHEET_PROJECT']) +1
-            if project.get('staff_id') in config.get_personal_of(project_id) and project.get('staff_id') != config.ID_OF_ACCOUNTING_PERSON and project.get('staff_id') != config.ID_OF_CLEANING_PERSON:
+            if project.get('staff_id') in get_personal_of(project_id) and project.get('staff_id') != ID_OF_ACCOUNTING_PERSON and project.get('staff_id') != ID_OF_CLEANING_PERSON:
                 # 'SURCHARGES_RETURN_SHEET'
                 # TODO noch mal ansehen, wie das mit den Erstattungen ist, es kann mehrere pro Monat geben
                 # evt. als Überbrückung als Dict in die additional_costs schreiben und später hier verteilen?
@@ -118,9 +118,9 @@ def distribute_values_to_sheets(splitted_values_list, project_id, date, project_
                 append_row_to('SURCHARGES_SHEET', project_sheets, distribute_to_surcharges_sheet(project, date))
                 append_row_to('RIDE_COST_SHEET', project_sheets, distribute_to_ride_costs_sheet(project, date))
                 append_row_to('PHONE_SHEET', project_sheets, distribute_to_phone_sheet(project, date))
-            if project.get('staff_id') == config.ID_OF_ACCOUNTING_PERSON:
+            if project.get('staff_id') == ID_OF_ACCOUNTING_PERSON:
                 append_row_to('ACCOUNTING_SHEET', project_sheets, distribute_to_accounting_sheet(project, date))
-            if project.get('staff_id') == config.ID_OF_CLEANING_PERSON:
+            if project.get('staff_id') == ID_OF_CLEANING_PERSON:
                 append_row_to('CLEANING_COAST_SHEET', project_sheets, distribute_to_cleaning_coast_sheet(project, date))
 
 
@@ -151,33 +151,33 @@ def get_last_row_num_of(sheet):
 
 def add_last_row(project_sheets):
     last_row_num = get_last_row_num_of(project_sheets['COSTS_SHEET_PROJECT'])
-    config.TABLE_FOOTER_OF_COSTS.append((f'=SUM(G2:G{last_row_num })', config.TABLE_FORMAT_HEAD))
+    TABLE_FOOTER_OF_COSTS.append((f'=SUM(G2:G{last_row_num })', TABLE_FORMAT_HEAD))
 
     last_row_num = get_last_row_num_of(project_sheets['SURCHARGES_SHEET'])
-    config.TABLE_FOOTER_OF_SURCHARGES_SHEET.extend([
-        (f'=SUM(C2:C{last_row_num})', config.TABLE_FORMAT_HEAD),
-        (f'=SUM(D2:D{last_row_num})', config.TABLE_FORMAT_HEAD),
-        (f'=SUM(E2:E{last_row_num})', config.TABLE_FORMAT_HEAD)
+    TABLE_FOOTER_OF_SURCHARGES_SHEET.extend([
+        (f'=SUM(C2:C{last_row_num})', TABLE_FORMAT_HEAD),
+        (f'=SUM(D2:D{last_row_num})', TABLE_FORMAT_HEAD),
+        (f'=SUM(E2:E{last_row_num})', TABLE_FORMAT_HEAD)
     ])
 
     last_row_num = get_last_row_num_of(project_sheets['RIDE_COST_SHEET'])
-    config.TABLE_FOOTER_OF_RIDE_COST_SHEET.append((f'=SUM(C2:C{last_row_num})', config.TABLE_FORMAT_HEAD))
+    TABLE_FOOTER_OF_RIDE_COST_SHEET.append((f'=SUM(C2:C{last_row_num})', TABLE_FORMAT_HEAD))
 
     last_row_num = get_last_row_num_of(project_sheets['PHONE_SHEET'])
-    config.TABLE_FOOTER_OF_PHONE_SHEET.append((f'=SUM(C2:C{last_row_num})', config.TABLE_FORMAT_HEAD))
+    TABLE_FOOTER_OF_PHONE_SHEET.append((f'=SUM(C2:C{last_row_num})', TABLE_FORMAT_HEAD))
 
     last_row_num = get_last_row_num_of(project_sheets['ACCOUNTING_SHEET'])
-    config.TABLE_FOOTER_OF_ACCOUNTING_SHEET.append((f'=SUM(C2:C{last_row_num})', config.TABLE_FORMAT_HEAD))
+    TABLE_FOOTER_OF_ACCOUNTING_SHEET.append((f'=SUM(C2:C{last_row_num})', TABLE_FORMAT_HEAD))
 
     last_row_num = get_last_row_num_of(project_sheets['CLEANING_COAST_SHEET'])
-    config.TABLE_FOOTER_OF_CLEANING_COAST_SHEET.append((f'=SUM(C2:C{last_row_num})', config.TABLE_FORMAT_HEAD))
+    TABLE_FOOTER_OF_CLEANING_COAST_SHEET.append((f'=SUM(C2:C{last_row_num})', TABLE_FORMAT_HEAD))
 
-    append_row_to('COSTS_SHEET_PROJECT', project_sheets, config.TABLE_FOOTER_OF_COSTS)
-    append_row_to('SURCHARGES_SHEET', project_sheets, config.TABLE_FOOTER_OF_SURCHARGES_SHEET)
-    append_row_to('RIDE_COST_SHEET', project_sheets, config.TABLE_FOOTER_OF_RIDE_COST_SHEET)
-    append_row_to('PHONE_SHEET', project_sheets, config.TABLE_FOOTER_OF_PHONE_SHEET)
-    append_row_to('ACCOUNTING_SHEET', project_sheets, config.TABLE_FOOTER_OF_ACCOUNTING_SHEET)
-    append_row_to('CLEANING_COAST_SHEET', project_sheets, config.TABLE_FOOTER_OF_CLEANING_COAST_SHEET)
+    append_row_to('COSTS_SHEET_PROJECT', project_sheets, TABLE_FOOTER_OF_COSTS)
+    append_row_to('SURCHARGES_SHEET', project_sheets, TABLE_FOOTER_OF_SURCHARGES_SHEET)
+    append_row_to('RIDE_COST_SHEET', project_sheets, TABLE_FOOTER_OF_RIDE_COST_SHEET)
+    append_row_to('PHONE_SHEET', project_sheets, TABLE_FOOTER_OF_PHONE_SHEET)
+    append_row_to('ACCOUNTING_SHEET', project_sheets, TABLE_FOOTER_OF_ACCOUNTING_SHEET)
+    append_row_to('CLEANING_COAST_SHEET', project_sheets, TABLE_FOOTER_OF_CLEANING_COAST_SHEET)
 
 
 if __name__ == "__main__":
@@ -195,7 +195,7 @@ if __name__ == "__main__":
         {'project_id': '0026_comM', 'staff_id': '1004', 'project_hours': '20.0', 'Gehalt': '=ROUND(2297.29/24*20.0, 2)', 'Sozialv.': '=ROUND(469.79/24*20.0, 2)', 'U1': '=ROUND(55.13/24*20.0, 2)', 'U2': '=ROUND(8.96/24*20.0, 2)', 'InsoU': '=ROUND(1.38/24*20.0, 2)', 'bAV': '=ROUND(75.0/24*20.0, 2)', 'AU-Erstattung': '=ROUND(237.23/24*20.0, 2)'}
         ]
     project_id = workbook_name = '0026'
-    project_sheets = create_project_sheets(config.get_sheetnames_of(project_id))
+    project_sheets = create_project_sheets(get_sheetnames_of(project_id))
     distribute_values_to_sheets(splitted_values_list, project_id, get_date_object("24_01"), project_sheets)
     print(project_sheets)
     project_sheets = remove_empty_rows(project_sheets)

@@ -1,7 +1,7 @@
-import config
-from path_creator import get_paths
-from date_creator import get_sheet_name
-from data_merger import merge_dicts
+from .config import OF_INTEREST, UNNEEDED_EMPLOYEE_DATA, INDEX
+from .path_creator import get_paths
+from .date_creator import get_sheet_name
+from .data_merger import merge_dicts
 from data_reader import reader
 
 def erase_unneeded_data(data):
@@ -11,7 +11,7 @@ def erase_unneeded_data(data):
         for key, value in employee.items():
             
             #TODO Exception abfangen, falls sich Spaltennamen geändert haben
-            if key in config.OF_INTEREST:
+            if key in OF_INTEREST:
                 clean_employee_dict[key] = value
 
         clean_employee_list.append(clean_employee_dict)
@@ -23,7 +23,7 @@ def erase_unneeded_employee_data(data):
         clean_employee_dict = {}
         for key, value in employee.items():
             
-            if key not in config.UNNEEDED_EMPLOYEE_DATA:
+            if key not in UNNEEDED_EMPLOYEE_DATA:
                 clean_employee_dict[key] = value
 
         clean_employee_list.append(clean_employee_dict)
@@ -31,7 +31,7 @@ def erase_unneeded_employee_data(data):
 
 
 def add_values_of_interest(project_dict, employee):
-    for key in config.OF_INTEREST:
+    for key in OF_INTEREST:
         project_dict[key] = employee.get(key)
     return project_dict
 
@@ -42,7 +42,7 @@ def extract_projects(employee_data):
     for employee in employee_data:
         for key, value in employee.items():
             project_dict = {}
-            if key not in config.OF_INTEREST:
+            if key not in OF_INTEREST:
                 if value != 'nan' and value != '0.0':
                     project_dict['project_id'] = key
                     project_dict['project_hours'] = value
@@ -64,7 +64,7 @@ def calculate(employee_data, journal_data, provision, additional_costs):
 
 def show_debug_infos():
     journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths('', '25', '25_09_11 Lohnjournal September 2025.xlsx', '25_09')
-    index = config.INDEX
+    index = INDEX
     sheet_name= get_sheet_name('25_09_11 Lohnjournal September 2025.xlsx')
     ids = [1004, 1156]
     

@@ -1,14 +1,14 @@
-from journal_names_getter import get_journal_names
-from path_creator import get_paths
-from project_rows_creator import create_project_sheets, distribute_values_to_sheets, remove_empty_rows, add_last_row
-from projects_rows_creator import get_all_rows
-from config import get_paths_for, INDEX, get_personal_of, get_sheetnames_of
-from id_merger import merge_ids
-from date_creator import get_year, get_sheet_name, get_date_from
-from project_costs_calculator import calculate
-from costs_splitter import split
-from projects_rows_creator import get_all_rows
-from workbook_writer import write
+from .journal_names_getter import get_journal_names
+from .path_creator import get_paths
+from .project_rows_creator import create_project_sheets, distribute_values_to_sheets, remove_empty_rows, add_last_row
+from .projects_rows_creator import get_all_rows
+from .config import get_paths_for, INDEX, get_personal_of, get_sheetnames_of
+from .id_merger import merge_ids
+from .date_creator import get_year, get_sheet_name, get_date_from
+from .project_costs_calculator import calculate
+from .costs_splitter import split
+from .projects_rows_creator import get_all_rows
+from .workbook_writer import write
 
 from data_reader import reader
 

@@ -1,15 +1,15 @@
 from operator import itemgetter
-from date_creator import get_date_object
-from workbook_writer import write
-import config
+from .date_creator import get_date_object
+from .workbook_writer import write
+from .config import PROJECT_ID_FORMAT_PROJECTS, DATE_FORMAT_PROJECTS, TEXT_FORMAT_PROJECTS, CURRENCY_FORMAT
 
 def create_new_headline(project_id, date_object, all_rows):
-    all_rows.append(([("", config.TEXT_FORMAT_PROJECTS)]))
+    all_rows.append(([("", TEXT_FORMAT_PROJECTS)]))
     row_data_costs = [
-        (project_id, config.PROJECT_ID_FORMAT_PROJECTS),
-        (date_object, config.DATE_FORMAT_PROJECTS),
-        ("", config.PROJECT_ID_FORMAT_PROJECTS),
-        ("", config.PROJECT_ID_FORMAT_PROJECTS)
+        (project_id, PROJECT_ID_FORMAT_PROJECTS),
+        (date_object, DATE_FORMAT_PROJECTS),
+        ("", PROJECT_ID_FORMAT_PROJECTS),
+        ("", PROJECT_ID_FORMAT_PROJECTS)
     ]   
     all_rows.append((row_data_costs))
     return all_rows
@@ -17,10 +17,10 @@ def create_new_headline(project_id, date_object, all_rows):
 
 def get_row(key, value):
     row = [
-            (key, config.TEXT_FORMAT_PROJECTS),
-            ("", config.TEXT_FORMAT_PROJECTS),
-            ("", config.CURRENCY_FORMAT),
-            (value, config.CURRENCY_FORMAT)
+            (key, TEXT_FORMAT_PROJECTS),
+            ("", TEXT_FORMAT_PROJECTS),
+            ("", CURRENCY_FORMAT),
+            (value, CURRENCY_FORMAT)
     ]
     return row
 

@@ -1,6 +1,6 @@
 from math import isnan
-from id_reader import get_all_ids_from
-from path_creator import get_paths
+from .id_reader import get_all_ids_from
+from .path_creator import get_paths
 
 def merge_ids(files, sheet_name):
     journal_data_file, employee_data_file, provisions_data_file, additional_costs_file = files

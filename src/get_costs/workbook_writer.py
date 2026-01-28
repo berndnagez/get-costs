@@ -1,10 +1,10 @@
 import xlsxwriter
-import config
+from .config import SHEETS_KEYS
 
 def write(name, border, all_rows):
     workbook = get_workbook(f'{name}.xlsx')
     for worksheetname, data in all_rows.items():
-        sheet_config = config.SHEETS_KEYS.get(worksheetname)
+        sheet_config = SHEETS_KEYS.get(worksheetname)
         sheetname = sheet_config[0]
         column_width = sheet_config[1]
         orientation = sheet_config[2]

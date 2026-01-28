@@ -2,8 +2,8 @@
 
 from sys import argv
 # own modules
-from choice_getter import get_choice
-from result_file_creator import create_result_file_for, create_result_file_for_all_projects, create_result_file_for_project_with
+from src.get_costs.choice_getter import get_choice
+from src.get_costs.result_file_creator import create_result_file_for, create_result_file_for_all_projects, create_result_file_for_project_with
 
 #TODO feature request: Bonus mit einbauen (siehe 24_12_18 Lohnjournal Dezember 2024.xlsx), Schwierigkeit: keine Extraspalte für den Bonus,
 # kommt einfach in den Spalten "Gesamtbrutto" und "Auszahlungsbetrag" dazu

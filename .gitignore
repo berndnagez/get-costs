@@ -2,6 +2,8 @@
 debhelper-build-stamp
 get-costs.substvars
 
+testing.py
+
 /.pybuild
 /debian/.debhelper/
 /debian/get-costs

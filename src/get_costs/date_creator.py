@@ -16,8 +16,6 @@ def split_year_month(filename):
 
 def get_sheet_name(filename):
     year, month = split_year_month(filename)
-    print(split_year_month(filename))
-    print(f'Jahr: {year}, Monat: {month}')
     sheet_name = f'{year}_{month}'
     return sheet_name
 

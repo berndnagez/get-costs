@@ -38,7 +38,7 @@ def add_values_of_interest(project_dict, employee):
 
 
 def extract_projects(employee_data):
-    project_list = []
+    projectlist = []
     for employee in employee_data:
         for key, value in employee.items():
             project_dict = {}
@@ -47,11 +47,11 @@ def extract_projects(employee_data):
                     project_dict['project_id'] = key
                     project_dict['project_hours'] = value
                     add_values_of_interest(project_dict, employee)
-                    project_list.append(project_dict)
-    return project_list
+                    projectlist.append(project_dict)
+    return projectlist
 
 
-def calculate(employee_data, journal_data, provision, additional_costs):
+def create_projectlist(employee_data, journal_data, provision, additional_costs):
     clean_journal_data = erase_unneeded_data(journal_data)
     clean_provision = erase_unneeded_data(provision)
     clean_additional_costs = erase_unneeded_data(additional_costs)
@@ -59,7 +59,8 @@ def calculate(employee_data, journal_data, provision, additional_costs):
     employee_data = merge_dicts(employee_data, clean_journal_data)
     employee_data = merge_dicts(employee_data, clean_additional_costs)
     employee_data = merge_dicts(employee_data, clean_provision)
-    return extract_projects(employee_data)
+    projectlist = extract_projects(employee_data)
+    return projectlist
 
 
 def show_debug_infos():
@@ -73,7 +74,7 @@ def show_debug_infos():
     provision = reader.get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
     additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
 
-    print(calculate(employee_data, journal_data, provision, additional_costs))
+    print(create_projectlist(employee_data, journal_data, provision, additional_costs))
 
 if __name__ == "__main__":
     debug = True

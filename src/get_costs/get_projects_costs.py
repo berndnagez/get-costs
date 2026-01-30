@@ -8,8 +8,8 @@ from date_creator import validate, get_year, get_sheet_name, get_date_from
 from path_creator import get_paths, PathNotFoundError
 from id_reader import get_all_ids_from, get_project_ids_from
 from data_reader import get_list_of_dicts
-from project_costs_calculator import calculate
-from costs_splitter import split
+from src.get_costs.projectlist_creater import create_projectlist
+from costs_splitter import split_costs
 from projects_rows_creator import get_all_rows
 from workbook_writer import write
 
@@ -71,8 +71,8 @@ if __name__ == "__main__":
         provision = get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
         additional_costs = get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
 
-        project_list = calculate(employee_data, journal_data, provision, additional_costs)
-        splitted_values_list = split(project_list, projects=True)
+        projectlist = create_projectlist(employee_data, journal_data, provision, additional_costs)
+        splitted_values_list = split_costs(projectlist, projects=True)
         all_rows = get_all_rows(splitted_values_list, date, all_rows)
 
     border = False

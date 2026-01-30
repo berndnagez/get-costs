@@ -148,9 +148,9 @@ def get_keys_and_value_list_of_project(project):
     return keys_and_value_list
 
 
-def split(project_list, projects):
+def split_costs(projectlist, projects):
     splitted_values_list = []
-    for project in project_list:
+    for project in projectlist:
         splitted_values_dict = {}        
         divisor = get_divisor(project)
         
@@ -162,8 +162,8 @@ def split(project_list, projects):
             keys_and_value_list = get_keys_and_value_list_of_projects(first_name, project)
             create_formulas_for_projects(keys_and_value_list, divisor, splitted_values_dict)
         else:
-            # TODO wer macht die project_list? da auch ID durch staff_id ersetzen = Konsitenz
-            # 19.01.2026: der project_costs_calculator.py macht die project_list, bekommt die ID vom data_reader (data_dict['ID'] = str(id))
+            # TODO wer macht die projectlist? da auch ID durch staff_id ersetzen = Konsitenz
+            # 19.01.2026: der project_costs_calculator.py macht die projectlist, bekommt die ID vom data_reader (data_dict['ID'] = str(id))
             splitted_values_dict['staff_id'] = project.get('ID')
             splitted_values_dict['project_hours'] = project.get('project_hours')
             keys_and_value_list = get_keys_and_value_list_of_project(project)

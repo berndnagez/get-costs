@@ -1,5 +1,6 @@
 import os
 
+
 def get_journal_names(path):
     journal_names = os.listdir(path)
     # iteration to remove lock-files

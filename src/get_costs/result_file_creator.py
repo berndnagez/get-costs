@@ -14,6 +14,7 @@ from data_reader import reader
 
 project_sheets = {}
 
+
 def get_available_project_staff_ids(project_staff_ids, all_ids_from_journal):
     ids = []
     for id in project_staff_ids:
@@ -25,10 +26,11 @@ def get_available_project_staff_ids(project_staff_ids, all_ids_from_journal):
 def create_result_file_for(project_id):
     paths = get_paths_for(project_id)
     journal_data_path = paths.get('JOURNAL_DATA_PATH')
-    year_dirs =  get_journal_names(journal_data_path)
+    year_dirs = get_journal_names(journal_data_path)
     journal_names = []
     for year_dir in year_dirs:
-        journal_names.extend(get_journal_names(journal_data_path + f'/{year_dir}/'))
+        journal_names.extend(get_journal_names(
+            journal_data_path + f'/{year_dir}/'))
     project_sheets = create_project_sheets(get_sheetnames_of(project_id))
 
     # hier ist der Gedanke, dass einfach alle Lohnjournale verarbeitet werden, die da sind; perspektivisch wäre es cool, einen Auswertungszeitraum angeben zu können
@@ -39,23 +41,31 @@ def create_result_file_for(project_id):
     for journal_name in journal_names:
         year = get_year(journal_name)
         sheet_name = year_month_prefix = get_sheet_name(journal_name)
-        journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(project_id, year, journal_name, year_month_prefix)
+        journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(
+            project_id, year, journal_name, year_month_prefix)
         date = get_date_from(journal_name)
         index = INDEX
         project_staff_ids = get_personal_of(project_id)
-        all_ids = merge_ids((journal_data_file, employee_data_file, provisions_data_file, additional_costs_file), sheet_name)
+        all_ids = merge_ids((journal_data_file, employee_data_file,
+                            provisions_data_file, additional_costs_file), sheet_name)
         ids = get_available_project_staff_ids(project_staff_ids, all_ids)
 
-        employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
+        employee_data = reader.get_list_of_dicts(
+            employee_data_file, sheet_name, index, ids)
         # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
-        journal_data = reader.get_list_of_dicts(journal_data_file, "first_sheet", index, ids)
-        provision = reader.get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
-        additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
+        journal_data = reader.get_list_of_dicts(
+            journal_data_file, "first_sheet", index, ids)
+        provision = reader.get_list_of_dicts(
+            provisions_data_file, sheet_name, index, ids)
+        additional_costs = reader.get_list_of_dicts(
+            additional_costs_file, sheet_name, index, ids)
 
-        projectlist = create_projectlist(employee_data, journal_data, provision, additional_costs)
+        projectlist = create_projectlist(
+            employee_data, journal_data, provision, additional_costs)
         splitted_values_list = split_costs(projectlist, projects=False)
-        distribute_values_to_sheets(splitted_values_list, project_id, date, project_sheets)
-    project_sheets =  remove_empty_rows(project_sheets)
+        distribute_values_to_sheets(
+            splitted_values_list, project_id, date, project_sheets)
+    project_sheets = remove_empty_rows(project_sheets)
     add_last_row(project_sheets)
     border = True
     result_file_path = paths.get('RESULT_FILE_PATH') + f'{project_id}'
@@ -65,24 +75,32 @@ def create_result_file_for(project_id):
 def create_result_file_for_all_projects(journal_name):
     year = get_year(journal_name)
     sheet_name = year_month_prefix = get_sheet_name(journal_name)
-    journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths('', year, journal_name, year_month_prefix)
+    journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(
+        '', year, journal_name, year_month_prefix)
     date = get_date_from(journal_name)
     index = INDEX
-    ids = merge_ids((journal_data_file, employee_data_file, provisions_data_file, additional_costs_file), sheet_name)
+    ids = merge_ids((journal_data_file, employee_data_file,
+                    provisions_data_file, additional_costs_file), sheet_name)
 
-    employee_data = reader.get_list_of_dicts(employee_data_file, sheet_name, index, ids)
+    employee_data = reader.get_list_of_dicts(
+        employee_data_file, sheet_name, index, ids)
     # TODO nächste Zeile führt zu Problemen bei "23_02_21 Lohnjournal Februar 2023.xlsx", wenn Tabellenblatt "Februar 2023" nicht an erster Stelle
-    journal_data = reader.get_list_of_dicts(journal_data_file, "first_sheet", index, ids)
-    provision = reader.get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
-    additional_costs = reader.get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
+    journal_data = reader.get_list_of_dicts(
+        journal_data_file, "first_sheet", index, ids)
+    provision = reader.get_list_of_dicts(
+        provisions_data_file, sheet_name, index, ids)
+    additional_costs = reader.get_list_of_dicts(
+        additional_costs_file, sheet_name, index, ids)
 
-    projectlist = create_projectlist(employee_data, journal_data, provision, additional_costs)
+    projectlist = create_projectlist(
+        employee_data, journal_data, provision, additional_costs)
     splitted_values_list = split_costs(projectlist, projects=True)
     all_rows = []
     all_rows = get_all_rows(splitted_values_list, date, all_rows)
     border = False
     write(result_file_path, border, all_rows)
-    #TODO Fehler abfangen, wenn hinter -i der Dateiname nicht in Anführungszeichen kommt (dann sollte nur das Datum hier ankommmen und es müsste eine Fehler entstehen)
+    # TODO Fehler abfangen, wenn hinter -i der Dateiname nicht in Anführungszeichen kommt (dann sollte nur das Datum hier ankommmen und es müsste eine Fehler entstehen)
+
 
 def create_result_file_for_project_with(journal, project_id):
     print("Die Auswertung eines einzelnen Projekts in Zusammenhang mit einem einzelnen Lohnjournal ist noch nicht implementiert.")

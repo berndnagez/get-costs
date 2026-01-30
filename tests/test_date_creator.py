@@ -1,12 +1,13 @@
 from src.get_costs import date_creator
 
+
 def test_validate():
     valid_filename = "24_04_23 Lohnjournal April 2024.xlsx"
     invalid_filename = "Lohnjournal April 2024.xlsx"
-    
+
     # This should not raise an error
     date_creator.validate(valid_filename)
-    
+
     try:
         date_creator.validate(invalid_filename)
     except SystemExit as e:
@@ -21,10 +22,12 @@ def test_split_year_month():
     assert year == "24"
     assert month == "04"
 
+
 def test_get_sheet_name():
     filename = "24_04_23 Lohnjournal April 2024.xlsx"
     sheet_name = date_creator.get_sheet_name(filename)
     assert sheet_name == "24_04"
+
 
 def test_get_date_from():
     filename = "24_04_23 Lohnjournal April 2024.xlsx"

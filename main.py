@@ -5,11 +5,12 @@ from sys import argv
 from src.get_costs.choice_getter import get_choice
 from src.get_costs.result_file_creator import create_result_file_for, create_result_file_for_all_projects, create_result_file_for_project_with
 
-#TODO feature request: Bonus mit einbauen (siehe 24_12_18 Lohnjournal Dezember 2024.xlsx), Schwierigkeit: keine Extraspalte für den Bonus,
+# TODO feature request: Bonus mit einbauen (siehe 24_12_18 Lohnjournal Dezember 2024.xlsx), Schwierigkeit: keine Extraspalte für den Bonus,
 # kommt einfach in den Spalten "Gesamtbrutto" und "Auszahlungsbetrag" dazu
 
-#TODO einmal alle Dateien durchgehen = werden sie noch benutzt? Sonst löschen
+# TODO einmal alle Dateien durchgehen = werden sie noch benutzt? Sonst löschen
 # aber vielleicht erst, wenn die Funktionaliät für Paul da ist
+
 
 def print_project_id_info():
     print(f'Folgendes Projekt wurde gewählt: {project_id}.')
@@ -21,8 +22,10 @@ def print_journal_info():
 
 
 def print_project_info_and_journal_info():
-    print(f'Für das Projekt "{project_id}" wird folgendes Lohnjournal ausgewertet: "{journal}".')
+    print(
+        f'Für das Projekt "{project_id}" wird folgendes Lohnjournal ausgewertet: "{journal}".')
     print(f'Es wird die Datei "{project_id}.xlsx" erzeugt.')
+
 
 if __name__ == "__main__":
     choice = get_choice(argv[1:])

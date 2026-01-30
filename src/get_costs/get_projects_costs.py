@@ -28,7 +28,7 @@ from workbook_writer import write
 # am Ende: alle alten Dateien löschen und an Paul ausliefern (wie finde ich heraus, welche gebraucht werden? von main_test ausgehen = was wird da importiert + bei den importierten schauen, was die so importieren usw. = Liste erstellen, dann löschen und testen, ob alles noch geht)
 # wann merge ich die branches?
 
-# rüste ich dann zu Übung tests nach? was ergibt die Suche zu pandas test(-driven) 
+# rüste ich dann zu Übung tests nach? was ergibt die Suche zu pandas test(-driven)
 
 
 # TODO sys.exit durch Exceptions ersetzen, um den Programmfluss besser zu steuern
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     choice = get_choice(argv[1:])
     if choice:
         journal_names = choice
-        
+
     else:
         # TODO nutzt den journal_names_getter, der noch im falschen Verzeichnis sucht, muss eigentlich noch eine Jahresopiton entgegennehmen
         journal_names = get_journal_names()
@@ -58,7 +58,8 @@ if __name__ == "__main__":
         journal_data_file = employee_data_file = provisions_data_file = additional_costs_file = result_file_path = None
 
         try:
-            journal_data_file, employee_data_file, provisions_data_file , additional_costs_file, result_file_path = get_paths(key, year, journal_name, year_month_prefix)
+            journal_data_file, employee_data_file, provisions_data_file, additional_costs_file, result_file_path = get_paths(
+                key, year, journal_name, year_month_prefix)
         except PathNotFoundError as err:
             print(f'WARNUNG: {err}')
             all_rows = []
@@ -66,20 +67,25 @@ if __name__ == "__main__":
         index = config.INDEX
         ids = get_all_ids_from(employee_data_file, sheet_name)
 
-        employee_data = get_list_of_dicts(employee_data_file, sheet_name, index, ids)
-        journal_data = get_list_of_dicts(journal_data_file, "first_sheet", index, ids)
-        provision = get_list_of_dicts(provisions_data_file, sheet_name, index, ids)
-        additional_costs = get_list_of_dicts(additional_costs_file, sheet_name, index, ids)
+        employee_data = get_list_of_dicts(
+            employee_data_file, sheet_name, index, ids)
+        journal_data = get_list_of_dicts(
+            journal_data_file, "first_sheet", index, ids)
+        provision = get_list_of_dicts(
+            provisions_data_file, sheet_name, index, ids)
+        additional_costs = get_list_of_dicts(
+            additional_costs_file, sheet_name, index, ids)
 
-        projectlist = create_projectlist(employee_data, journal_data, provision, additional_costs)
+        projectlist = create_projectlist(
+            employee_data, journal_data, provision, additional_costs)
         splitted_values_list = split_costs(projectlist, projects=True)
         all_rows = get_all_rows(splitted_values_list, date, all_rows)
 
     border = False
     if choice:
-        workbook_name = result_file_path        
+        workbook_name = result_file_path
     else:
         workbook_name = "Kosten_aller_MA_innen"
-    
+
     if len(all_rows):
         write(workbook_name, border, all_rows)

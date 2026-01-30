@@ -192,7 +192,7 @@ def test_create_formulas_for_project():
     assert expected_splitted_values_dict == returned_splitted_values_dict    
 
 def test_split():
-    project_list = [
+    projectlist = [
         {'project_id': '0026_comM', 'project_hours': '20.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
         {'project_id': '0054_comBüse', 'project_hours': '4.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
         {'project_id': '0005_Präv', 'project_hours': '7.0', 'ID': '1032', 'Name': 'Alan Roberts', 'Wochenstd': '40', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
@@ -212,10 +212,10 @@ def test_split():
         {'project_id': '0026_comM', 'Gehalt Paul': '=ROUND(-3675.67/20*10.0, 2)', 'Sozialv. Paul': '=ROUND(-749.47/20*10.0, 2)', 'Umlagen Paul': '=ROUND(-142.99/20*10.0, 2)', 'bAV Paul': '=ROUND(-150.0/20*10.0, 2)', 'HVV Paul': '=ROUND(-46.55/20*10.0, 2)', '1&1 Paul': '=ROUND(-7.99/20*10.0, 2)', 'Edenred Paul': '=ROUND(-50.0/20*10.0, 2)'},
         {'project_id': '0002_amb. TG ', 'Gehalt Nels': 0.0, 'Sozialv. Nels': '=ROUND(-0.0/25.0*25.0, 2)', 'Umlagen Nels': '=ROUND(-0.0/25.0*25.0, 2)', 'bAV Nels': 0.0, '1&1 Nels': '=ROUND(-19.99/25.0*25.0, 2)'}
         ]
-    returned_splitted_values_list = costs_splitter.split_costs(project_list, projects=True)
+    returned_splitted_values_list = costs_splitter.split_costs(projectlist, projects=True)
     assert expected_splitted_values_list == returned_splitted_values_list
 
-    project_list = [
+    projectlist = [
         {'project_id': '0026_comM', 'project_hours': '20.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
         {'project_id': '0054_comBüse', 'project_hours': '4.0', 'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '24', 'St.Brutto - Steuerbrutto': '2297.29', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '55.13', 'U2 - Umlage 2': '8.96', 'InsoU - Insolvenzgeldumlage': '1.38', 'KV-AG-Beitrag': '187.23', 'RV-AG-Beitrag': '213.65', 'AV-AG-Beitrag': '29.86', 'PV-AG-Beitrag': '39.05', 'bAV AG-Anteil': '75.0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': '237.23'},
         {'project_id': '0005_Präv', 'project_hours': '7.0', 'ID': '1032', 'Name': 'Alan Roberts', 'Wochenstd': '40', 'St.Brutto - Steuerbrutto': '3675.67', 'BezPausch - Pauschal versteuerte Bezüge': '0', 'U1 - Umlage 1': '124.97', 'U2 - Umlage 2': '15.81', 'InsoU - Insolvenzgeldumlage': '2.21', 'KV-AG-Beitrag': '297.36', 'RV-AG-Beitrag': '341.84', 'AV-AG-Beitrag': '47.78', 'PV-AG-Beitrag': '62.49', 'bAV AG-Anteil': '150.0', 'HVV': '-46.55', '1&1': '-7.99', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan'},
@@ -235,5 +235,5 @@ def test_split():
         {'project_id': '0026_comM', 'staff_id': '1035', 'project_hours': '10.0', 'Gehalt': '=ROUND(4764.680000000001/20*10, 2)*32.34%'},
         {'project_id': '0002_amb. TG ', 'staff_id': '1156', 'project_hours': '25.0', 'Gehalt': 0.0, 'Sozialv.': '=ROUND(0.0/25.0*25.0, 2)', 'U1': 0.0, 'U2': 0.0, 'InsoU': 0.0, 'bAV': 0.0, '1&1': '=ROUND(19.99/25.0*25.0, 2)'}
         ]
-    returned_splitted_values_list = costs_splitter.split_costs(project_list, projects=False)
+    returned_splitted_values_list = costs_splitter.split_costs(projectlist, projects=False)
     assert expected_splitted_values_list == returned_splitted_values_list

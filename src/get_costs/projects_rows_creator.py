@@ -3,9 +3,6 @@ from .config import PROJECT_ID_FORMAT_PROJECTS, DATE_FORMAT_PROJECTS, TEXT_FORMA
 
 
 def create_new_headline(project_id, date_object, all_rows):
-    print(f"Creating new headline for project_id: {project_id}")
-    print(f"Date object: {date_object}")
-    print(f"all_rows before adding headline: {all_rows}")
     all_rows.append(([("", TEXT_FORMAT_PROJECTS)]))
     row_data_costs = [
         (project_id, PROJECT_ID_FORMAT_PROJECTS),
@@ -14,7 +11,6 @@ def create_new_headline(project_id, date_object, all_rows):
         ("", PROJECT_ID_FORMAT_PROJECTS)
     ]
     all_rows.append((row_data_costs))
-    print(f"all_rows after adding headline: {all_rows}")
     return all_rows
 
 

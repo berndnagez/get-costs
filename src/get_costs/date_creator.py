@@ -18,12 +18,6 @@ def split_year_month(filename):
     return year, month
 
 
-def get_sheet_name(filename):
-    year, month = split_year_month(filename)
-    sheet_name = f'{year}_{month}'
-    return sheet_name
-
-
 def get_date_from(filename):
     year, month = split_year_month(filename)
     date_str = f'01-{month}-{year}'

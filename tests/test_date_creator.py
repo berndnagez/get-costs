@@ -23,12 +23,6 @@ def test_split_year_month():
     assert month == "04"
 
 
-def test_get_sheet_name():
-    filename = "24_04_23 Lohnjournal April 2024.xlsx"
-    sheet_name = date_creator.get_sheet_name(filename)
-    assert sheet_name == "24_04"
-
-
 def test_get_date_from():
     filename = "24_04_23 Lohnjournal April 2024.xlsx"
     date_object = date_creator.get_date_from(filename)

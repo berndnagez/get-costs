@@ -31,6 +31,7 @@ def erase_unneeded_employee_data(data):
 
 def add_values_of_interest(project_dict, employee):
     for key in OF_INTEREST:
+        # TODO diese .get-Verwendung überall raushauen, wenn ich alle tests fertig habe, erst mal an einer Stelle anfangen und sehen, ob  es was am Ergebnis ändert
         project_dict[key] = employee.get(key)
     return project_dict
 
@@ -44,6 +45,7 @@ def extract_projects(employee_data):
                 if value != 'nan' and value != '0.0':
                     project_dict['project_id'] = key
                     project_dict['project_hours'] = value
+                    # TODO add_values_of_interest gibt zwar project_dict zurück, ich nehme es aber nicht entgegen, sondern überschreibe es direkt – ist das unsauber? Mache ich das noch woanders?
                     add_values_of_interest(project_dict, employee)
                     projectlist.append(project_dict)
     return projectlist

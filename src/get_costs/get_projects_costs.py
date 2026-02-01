@@ -52,7 +52,7 @@ if __name__ == "__main__":
     for journal_name in journal_names:
         validate(journal_name)
         year = get_year(journal_name)
-        sheet_name = year_month_prefix = get_sheet_name(journal_name)
+        sheet_name = year_month_prefix = get_sheet_name_from(journal_name)
         date = get_date_from(journal_name)
 
         journal_data_file = employee_data_file = provisions_data_file = additional_costs_file = result_file_path = None

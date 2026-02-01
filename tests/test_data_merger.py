@@ -1,0 +1,34 @@
+from src.get_costs import data_merger
+
+
+def test_merge_dicts():
+    additional_costs = [{'ID': '1004', 'Name': 'Björn Nagel', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'},
+                        {'ID': '1154', 'Name': 'Matthias Lewandowski', 'HVV': 'nan', '1&1': '-26.55', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'}]
+    employee_data = [{'ID': '1004', 'Name': 'Björn T.', 'Wochenstd': '26.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': '1.0', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '20.0', '0054_comBüse': '4.0', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': '1.0', 'Kontrolle': '0'}, {
+        'ID': '1154', 'Name': 'Matthias', 'Wochenstd': '30.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': 'nan', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '30.0', '0054_comBüse': 'nan', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': 'nan', 'Kontrolle': '0'}]
+    expected_result = [{'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '26.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': '1.0', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '20.0', '0054_comBüse': '4.0', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': '1.0', 'Kontrolle': '0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'},
+                       {'ID': '1154', 'Name': 'Matthias Lewandowski', 'Wochenstd': '30.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': 'nan', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '30.0', '0054_comBüse': 'nan', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': 'nan', 'Kontrolle': '0', 'HVV': 'nan', '1&1': '-26.55', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'}]
+    merge_result = data_merger.merge_dicts(employee_data, additional_costs)
+    assert merge_result == expected_result
+
+    provision = [{'ID': '1004', 'Abrechnungsmonat': '2025/09', 'Name,Vorname (MA)': 'Nagel, Björn', 'bAV AG-Anteil': '75.0'}, {
+        'ID': '1154', 'Abrechnungsmonat': '2025/09', 'Name,Vorname (MA)': 'Lewandowski, Matthias', 'bAV AG-Anteil': '112.5'}]
+    employee_data = [{'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '26.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': '1.0', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '20.0', '0054_comBüse': '4.0', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': '1.0', 'Kontrolle': '0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'},
+                     {'ID': '1154', 'Name': 'Matthias Lewandowski', 'Wochenstd': '30.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': 'nan', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '30.0', '0054_comBüse': 'nan', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': 'nan', 'Kontrolle': '0', 'HVV': 'nan', '1&1': '-26.55', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'}]
+    excepted_result = [{'ID': '1004', 'Name': 'Björn Nagel', 'Wochenstd': '26.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': '1.0', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '20.0', '0054_comBüse': '4.0', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': '1.0', 'Kontrolle': '0', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan', 'Abrechnungsmonat': '2025/09',
+                        'Name,Vorname (MA)': 'Nagel, Björn', 'bAV AG-Anteil': '75.0'}, {'ID': '1154', 'Name': 'Matthias Lewandowski', 'Wochenstd': '30.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': 'nan', '0009_Talk about ': 'nan', '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '30.0', '0054_comBüse': 'nan', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': 'nan', 'Kontrolle': '0', 'HVV': 'nan', '1&1': '-26.55', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan', 'Abrechnungsmonat': '2025/09', 'Name,Vorname (MA)': 'Lewandowski, Matthias', 'bAV AG-Anteil': '112.5'}]
+    merge_result = data_merger.merge_dicts(employee_data, provision)
+    assert merge_result == excepted_result
+
+
+def test_merge_dicts_no_match():
+    additional_costs = [{'ID': '1004', 'Name': 'Björn Nagel', 'HVV': 'nan', '1&1': 'nan', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'},
+                        {'ID': '1154', 'Name': 'Matthias Lewandowski', 'HVV': 'nan', '1&1': '-26.55', 'Wetell': 'nan', 'Edenred': '-50.0', 'Urban Sports': 'nan', 'AU-Erstattung': 'nan', 'Unnamed: 8': 'nan'}]
+    employee_data = [{'ID': '1004', 'Name': 'Björn T.', 'Wochenstd': '26.0', '0001_HZE': 'nan', '0002_amb. TG ': 'nan', '0108_GruLeLe': 'nan', '0005_Präv': 'nan', '0006_JAT': '1.0', '0009_Talk about ': 'nan',
+                      '0010_PTJA': 'nan', '0022_Rap f. V. ': 'nan', '0026_comM': '20.0', '0054_comBüse': '4.0', '0053_EOK': 'nan', '0060_StoP': 'nan', '0061_MGs': 'nan', '0064_Denkplosiv': 'nan', '9998_Verwaltung': '1.0', 'Kontrolle': '0'}]
+    try:
+        data_merger.merge_dicts(additional_costs, employee_data)
+    except IndexError as e:
+        assert True
+    else:
+        assert False

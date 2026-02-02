@@ -1,16 +1,21 @@
-import config
+from .path_creator import get_EMPLOYEE_DATA_PATH
 
 
-def err_mess(employee, sum_project_hours, sheet_name):
-    print(
-        f'Bei Mitarbeiter*in {employee.get("name")} (ID: {employee.get("id")}) passt die Summe der Projektstunden nicht zu den Gesamtstunden.')
-    print(f'Gesamtstunden: {employee.get("hours")} Stunden.')
-    print(f'Summe der Projektstunden: {sum_project_hours} Stunden.')
-    print(
-        f'Bitte korrigiere das im Tabellenblatt "{sheet_name}" der Datei: "{config.EMPLOYEE_DATA_PATH}" und starte das Programm neu.')
+class ProjectHoursValidationError(Exception):
+    def __init__(self, employee, sum_project_hours, path_key, year, sheet_name):
+        employee_data_path = get_EMPLOYEE_DATA_PATH(path_key, year)
+        message = (
+            f'\n\nBei Mitarbeiter*in {employee.get("name")} (ID: {employee.get("id")}) passt die Summe der Projektstunden nicht zu den Gesamtstunden.\n'
+            f'Gesamtstunden: {employee.get("hours")} Stunden.\n'
+            f'Summe der Projektstunden: {sum_project_hours} Stunden.\n'
+            f'Bitte korrigiere das im Tabellenblatt "{sheet_name}" der Datei: "{employee_data_path}" und starte das Programm neu.'
+        )
+        self.message = message
+        super().__init__(self.message)
+    pass
 
 
-def validate(employee_data, sheet_name):
+def validate_project_hours(employee_data, path_key, year, sheet_name):
     for employee in employee_data:
         sum_project_hours = 0
         hours = float(employee.get("hours"))
@@ -18,16 +23,5 @@ def validate(employee_data, sheet_name):
             if key not in ["id", "name", "hours"]:
                 sum_project_hours += float(employee.get(key))
         if hours != sum_project_hours:
-            err_mess(employee, sum_project_hours, sheet_name)
-            exit('Programmabbruch.')
-
-
-def show_debug_infos():
-    validate([{'id': '1004', 'name': 'Björn Nagel', 'hours': '26.5', '0026': '20', '0054': '2.0', '0005': '4.5'}, {
-             'id': '1032', 'name': 'Alan Roberts', 'hours': '39', '0026': '23', '0005': '17.0'}], "24_01")
-
-
-if __name__ == "__main__":
-    debug = True
-    if (debug):
-        show_debug_infos()
+            raise ProjectHoursValidationError(
+                employee, sum_project_hours, path_key, year, sheet_name)

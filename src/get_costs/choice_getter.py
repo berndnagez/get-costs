@@ -39,15 +39,4 @@ def get_choice(argv):
         if opt in ('-h', "--help"):
             usage()
             sys.exit()
-
     return opts
-
-
-def show_debug_infos():
-    print(get_choice(sys.argv[1:]))
-
-
-if __name__ == "__main__":
-    debug = True
-    if (debug):
-        show_debug_infos()

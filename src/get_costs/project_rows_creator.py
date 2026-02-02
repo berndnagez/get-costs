@@ -200,36 +200,3 @@ def add_last_row(project_sheets):
                   TABLE_FOOTER_OF_ACCOUNTING_SHEET)
     append_row_to('CLEANING_COAST_SHEET', project_sheets,
                   TABLE_FOOTER_OF_CLEANING_COAST_SHEET)
-
-
-if __name__ == "__main__":
-    splitted_values_list = [
-        {'project_id': '0026_comM', 'staff_id': '1004', 'project_hours': '20.0', 'Gehalt': '=ROUND(2297.29/24*20.0, 2)', 'Sozialv.': '=ROUND(469.79/24*20.0, 2)', 'U1': '=ROUND(55.13/24*20.0, 2)',
-         'U2': '=ROUND(8.96/24*20.0, 2)', 'InsoU': '=ROUND(1.38/24*20.0, 2)', 'bAV': '=ROUND(75.0/24*20.0, 2)', 'AU-Erstattung': '=ROUND(237.23/24*20.0, 2)'},
-        {'project_id': '0054_comBüse', 'staff_id': '1004', 'project_hours': '4.0', 'Gehalt': '=ROUND(2297.29/24*4.0, 2)', 'Sozialv.': '=ROUND(469.79/24*4.0, 2)', 'U1': '=ROUND(55.13/24*4.0, 2)',
-         'U2': '=ROUND(8.96/24*4.0, 2)', 'InsoU': '=ROUND(1.38/24*4.0, 2)', 'bAV': '=ROUND(75.0/24*4.0, 2)', 'AU-Erstattung': '=ROUND(237.23/24*4.0, 2)'},
-        {'project_id': '0005_Präv', 'staff_id': '1032', 'project_hours': '7.0', 'Gehalt': '=ROUND(3675.67/40*7.0, 2)', 'Sozialv.': '=ROUND(749.47/40*7.0, 2)', 'U1': '=ROUND(124.97/40*7.0, 2)',
-         'U2': '=ROUND(15.81/40*7.0, 2)', 'InsoU': '=ROUND(2.21/40*7.0, 2)', 'bAV': '=ROUND(150.0/40*7.0, 2)', 'HVV': '=ROUND(46.55/40*7.0, 2)', '1&1': '=ROUND(7.99/40*7.0, 2)'},
-        {'project_id': '0009_Talk about ', 'staff_id': '1032', 'project_hours': '13.0', 'Gehalt': '=ROUND(3675.67/40*13.0, 2)', 'Sozialv.': '=ROUND(749.47/40*13.0, 2)', 'U1': '=ROUND(124.97/40*13.0, 2)',
-         'U2': '=ROUND(15.81/40*13.0, 2)', 'InsoU': '=ROUND(2.21/40*13.0, 2)', 'bAV': '=ROUND(150.0/40*13.0, 2)', 'HVV': '=ROUND(46.55/40*13.0, 2)', '1&1': '=ROUND(7.99/40*13.0, 2)'},
-        {'project_id': '0026_comM', 'staff_id': '1032', 'project_hours': '20.0', 'Gehalt': '=ROUND(3675.67/40*20.0, 2)', 'Sozialv.': '=ROUND(749.47/40*20.0, 2)', 'U1': '=ROUND(124.97/40*20.0, 2)',
-         'U2': '=ROUND(15.81/40*20.0, 2)', 'InsoU': '=ROUND(2.21/40*20.0, 2)', 'bAV': '=ROUND(150.0/40*20.0, 2)', 'HVV': '=ROUND(46.55/40*20.0, 2)', '1&1': '=ROUND(7.99/40*20.0, 2)'},
-        {'project_id': '0026_comM', 'staff_id': '1028',
-            'project_hours': '20.0', 'Gehalt': '=899.47*32.34%'},
-        {'project_id': '0026_comM', 'staff_id': '1035', 'project_hours': '10.0',
-            'Gehalt': '=ROUND(4621.6900000000005/20*10, 2)*32.34%'}
-    ]
-
-    splitted_values_list = [
-        {'project_id': '0026_comM', 'staff_id': '1004', 'project_hours': '20.0', 'Gehalt': '=ROUND(2297.29/24*20.0, 2)', 'Sozialv.': '=ROUND(469.79/24*20.0, 2)', 'U1': '=ROUND(55.13/24*20.0, 2)',
-         'U2': '=ROUND(8.96/24*20.0, 2)', 'InsoU': '=ROUND(1.38/24*20.0, 2)', 'bAV': '=ROUND(75.0/24*20.0, 2)', 'AU-Erstattung': '=ROUND(237.23/24*20.0, 2)'}
-    ]
-    project_id = workbook_name = '0026'
-    project_sheets = create_project_sheets(get_sheetnames_of(project_id))
-    distribute_values_to_sheets(
-        splitted_values_list, project_id, get_date_object("24_01"), project_sheets)
-    print(project_sheets)
-    project_sheets = remove_empty_rows(project_sheets)
-    add_last_row(project_sheets)
-    border = True
-    write(workbook_name, border, project_sheets)

@@ -72,7 +72,6 @@ def create_formulas_for_cleaning_person(project_id, keys_and_value_list, splitte
                     splitted_values_dict[key] = 0.0
                     print(f'Der Wert für "{key}" wurde auf 0,00 Euro gesetzt.')
                 else:
-                    print(value)
                     sum += float(value)
     splitted_values_dict['Gehalt'] = f'={sum}*{factor}'
     return splitted_values_dict

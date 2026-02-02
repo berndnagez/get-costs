@@ -24,13 +24,18 @@ OF_INTEREST = [
 
 UNNEEDED_EMPLOYEE_DATA = ['Kontrolle']
 
-# ich mache mir hier super viel Arbeit, um mit verschieden Pfaden arbeiten zu können (siehe auch path_creater.py, der das hier verwendet)
+# Erkenntnis: ich mache mir hier super viel Arbeit, um mit verschieden Pfaden arbeiten zu können (siehe auch path_creater.py, der das hier verwendet)
 # Idee: hätte ich eine GUI, könnte ich einfach die Auswahl der Dateien erzwingen und müsste mich nicht um die verschiedenen Orte kümmern
 # TODO: GUI bauen, file-Auswahl programmieren und diesen Teil ersetzen
+
+# tigth coupling ein Problem von Spagehetti-Code
+
+# def get_paths_for_all_projects():
 
 
 def get_paths_for(id):
     paths = {}
+    # Falk: magic key = ungut
     paths[''] = {
         'JOURNAL_DATA_PATH': "../../1036 Siebert und Partner/- 06 Lohnabrechnung _ Journal",
         'RAW_DATA_PATH': "./- 01 Rohdaten Zur Auswertung",

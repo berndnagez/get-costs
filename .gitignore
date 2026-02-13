@@ -16,6 +16,7 @@ testing.py
 *.pyc
 *.docx
 /data
+/tests/test_data
 __pycache__
 /problem_doku
 /backup

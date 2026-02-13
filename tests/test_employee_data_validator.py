@@ -15,7 +15,7 @@ def test_validate_project_hours_error():
         employee_data_validator.validate_project_hours(
             employee_data, path_key, year, sheet_name)
     except employee_data_validator.ProjectHoursValidationError as e:
-        assert f'\n\nBei Mitarbeiter*in Alan Roberts (ID: 1032) passt die Summe der Projektstunden nicht zu den Gesamtstunden.\n' in str(
+        assert f'\nBei Mitarbeiter*in Alan Roberts (ID: 1032) passt die Summe der Projektstunden nicht zu den Gesamtstunden.\n' in str(
             e)
         assert f'Gesamtstunden: 39 Stunden.\n' in str(e)
         assert f'Summe der Projektstunden: 40.0 Stunden.\n' in str(e)

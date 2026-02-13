@@ -28,7 +28,7 @@ UNNEEDED_EMPLOYEE_DATA = ['Kontrolle']
 # Idee: hätte ich eine GUI, könnte ich einfach die Auswahl der Dateien erzwingen und müsste mich nicht um die verschiedenen Orte kümmern
 # TODO: GUI bauen, file-Auswahl programmieren und diesen Teil ersetzen
 
-# tigth coupling ein Problem von Spagehetti-Code
+# tight coupling ein Problem von Spaghetti-Code
 
 # def get_paths_for_all_projects():
 

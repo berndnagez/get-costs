@@ -38,7 +38,10 @@ class RefundsReader:
             if match:
                 data = match.groupdict()
                 for key, value in data.items():
-                    if isinstance(value, str):
-                        data[key] = value.strip()
+                    if key == "staff_id":
+                        data[key] = int(value)
+                    else:
+                        if isinstance(value, str):
+                            data[key] = value.strip()
                 refunds.append(Refund(**data))
         return refunds

@@ -4,7 +4,7 @@ from typing import Optional
 
 @dataclass
 class Refund:
-    staff_id: str
+    staff_id: int
     name: str
     month: Optional[str] = None
     levy_type: str = ""

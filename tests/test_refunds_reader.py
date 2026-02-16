@@ -12,7 +12,7 @@ def test_read():
     for r in refunds:
         assert isinstance(r, Refund)
 
-    assert refunds[0].staff_id == "01147"
+    assert refunds[0].staff_id == 1147
     assert refunds[0].name == "Arda, Recep"
     assert refunds[0].data_id == "b4726fbb95654936b9ba"
     assert refunds[0].refund_amount == "129,60"
@@ -61,12 +61,12 @@ def test_extract_refunds():
     for r in refunds:
         assert isinstance(r, Refund)
 
-    assert refunds[0].staff_id == "01011"
+    assert refunds[0].staff_id == 1011
     assert refunds[0].name == "Özkan, Hasan"
     assert refunds[0].data_id == "4dad0b100154487ebf75"
     assert refunds[0].refund_amount == "809,17"
     assert refunds[0].status is None
-    assert refunds[1].staff_id == "01015"
+    assert refunds[1].staff_id == 1015
     assert refunds[1].name == "Barrientos, J."
     assert refunds[1].data_id is None
     assert refunds[1].refund_amount == "468,55"

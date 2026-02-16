@@ -4,7 +4,7 @@ from src.get_refunds.refunds_models import Refund
 
 def test_to_dict():
     refund = Refund(
-        staff_id="01011",
+        staff_id=1011,
         name="Özkan, Hasan",
         month="01/2025",
         levy_type="U1",
@@ -20,13 +20,13 @@ def test_to_dict():
     result = RefundsMapper.to_dict(refund)
 
     assert result["title"] == "U1 Özkan, Hasan 13. - 22.01.25"
-    assert result["staff_id"] == "01011"
+    assert result["staff_id"] == 1011
     assert result["month"] == "01/2025"
     assert result["refund_amount"] == "809,17"
     assert result["status"] == None
 
     refund = Refund(
-        staff_id="01011",
+        staff_id=1011,
         name="Özkan, Hasan",
         month="01/2025",
         levy_type="U1",
@@ -42,7 +42,7 @@ def test_to_dict():
     result = RefundsMapper.to_dict(refund)
 
     assert result["title"] == "U1 Özkan, Hasan 13.01.25"
-    assert result["staff_id"] == "01011"
+    assert result["staff_id"] == 1011
     assert result["month"] == "01/2025"
     assert result["refund_amount"] == "809,17"
     assert result["status"] == None
@@ -51,7 +51,7 @@ def test_to_dict():
 def test_list_to_dict():
     refunds = [
         Refund(
-            staff_id="01011",
+            staff_id=1011,
             name="Özkan, Hasan",
             month="01/2025",
             levy_type="U1",
@@ -64,7 +64,7 @@ def test_list_to_dict():
             status=None
         ),
         Refund(
-            staff_id="01015",
+            staff_id=1015,
             name="Barrientos, J.",
             month="12/2024",
             levy_type="U1",
@@ -82,13 +82,13 @@ def test_list_to_dict():
 
     assert len(result) == 2
     assert result[0]["title"] == "U1 Özkan, Hasan 13. - 22.01.25"
-    assert result[0]["staff_id"] == "01011"
+    assert result[0]["staff_id"] == 1011
     assert result[0]["month"] == "01/2025"
     assert result[0]["refund_amount"] == "809,17"
     assert result[0]["status"] == None
 
     assert result[1]["title"] == "U1 Barrientos, J. 06. - 13.12.24"
-    assert result[1]["staff_id"] == "01015"
+    assert result[1]["staff_id"] == 1015
     assert result[1]["month"] == "12/2024"
     assert result[1]["refund_amount"] == "468,55"
     assert result[1]["status"] == "S"

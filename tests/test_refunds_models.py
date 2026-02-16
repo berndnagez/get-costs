@@ -3,7 +3,7 @@ from src.get_refunds.refunds_models import Refund
 
 def test_refund_model():
     refund = Refund(
-        staff_id="01011",
+        staff_id=1011,
         name="Özkan, Hasan",
         month="01/2025",
         levy_type="U1",
@@ -15,7 +15,7 @@ def test_refund_model():
         refund_amount="809,17"
     )
 
-    assert refund.staff_id == "01011"
+    assert refund.staff_id == 1011
     assert refund.name == "Özkan, Hasan"
     assert refund.month == "01/2025"
     assert refund.levy_type == "U1"

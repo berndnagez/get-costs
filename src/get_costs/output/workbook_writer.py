@@ -1,5 +1,5 @@
 import xlsxwriter
-from .config import SHEETS_KEYS
+from src.get_costs.config import SHEETS_KEYS
 
 
 def write(name, border, all_rows):

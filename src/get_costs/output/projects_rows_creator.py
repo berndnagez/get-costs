@@ -1,5 +1,5 @@
 from operator import itemgetter
-from .config import PROJECT_ID_FORMAT_PROJECTS, DATE_FORMAT_PROJECTS, TEXT_FORMAT_PROJECTS, CURRENCY_FORMAT
+from src.get_costs.config import PROJECT_ID_FORMAT_PROJECTS, DATE_FORMAT_PROJECTS, TEXT_FORMAT_PROJECTS, CURRENCY_FORMAT
 
 
 def create_new_headline(project_id, date_object, all_rows):

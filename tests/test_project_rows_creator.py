@@ -1,5 +1,5 @@
 import datetime
-from src.get_costs import project_rows_creator
+from src.get_costs.output import project_rows_creator
 
 
 def test_create_project_sheets():

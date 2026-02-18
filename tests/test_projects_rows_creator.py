@@ -1,4 +1,4 @@
-from src.get_costs import projects_rows_creator
+from src.get_costs.output import projects_rows_creator
 from src.get_costs.date_creator import get_date_object
 import datetime
 

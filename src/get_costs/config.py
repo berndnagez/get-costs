@@ -257,11 +257,11 @@ def get_personal_of(project_id):
     ]
     personal_ids['0054'] = [
         '1004',
-        '1005',
-        '1017',
         '1028',
         '1035',
-        '1139'
+        '1139',
+        '1145',
+        '1158'
     ]
     if project_id in personal_ids:
         return personal_ids.get(project_id)

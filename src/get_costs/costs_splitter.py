@@ -58,7 +58,10 @@ def create_formulas_for_accounting_person(project_id, keys_and_value_list, divis
                         if "HVV" in key:
                             value = float(value)*-1
                             sum += float(value)
-    splitted_values_dict['Gehalt'] = f'=ROUND({sum}{divisor}, 2)*{factor}'
+    if factor == None:
+        splitted_values_dict['Gehalt'] = f'=ROUND({sum}{divisor}, 2)'
+    else:
+        splitted_values_dict['Gehalt'] = f'=ROUND({sum}{divisor}, 2)*{factor}'
     return splitted_values_dict
 
 
@@ -73,7 +76,10 @@ def create_formulas_for_cleaning_person(project_id, keys_and_value_list, splitte
                     print(f'Der Wert für "{key}" wurde auf 0,00 Euro gesetzt.')
                 else:
                     sum += float(value)
-    splitted_values_dict['Gehalt'] = f'={sum}*{factor}'
+    if factor == None:
+        splitted_values_dict['Gehalt'] = f'={sum}'
+    else:
+        splitted_values_dict['Gehalt'] = f'={sum}*{factor}'
     return splitted_values_dict
 
 # TODO: alle Spaltennamen, die von S&P kommen in der config als Dicts machen, so dass der key ein Variablenname ist und das value der eigentliche Spaltenname
